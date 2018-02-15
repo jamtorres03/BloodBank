@@ -28,6 +28,14 @@ public class LoginController {
 	}
 	
 	
+	@RequestMapping(value={"/", "/sample"}, method = RequestMethod.GET)
+	public ModelAndView sample(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("index");
+		return modelAndView;
+	}
+	
+	
 	@RequestMapping(value="/registration", method = RequestMethod.GET)
 	public ModelAndView registration(){
 		ModelAndView modelAndView = new ModelAndView();
