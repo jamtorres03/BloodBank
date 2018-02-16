@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta http-equiv="x-ua-compatible" content="ie=edge">
+	<title>Home</title>
+	<!-- Font Awesome -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	<!-- Bootstrap core CSS -->
+	<link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+	<!-- Material Design Bootstrap -->
+	<link th:href="@{/css/mdb.css}" rel="stylesheet">
+	<!-- Your custom styles (optional) -->
+	<link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body class="fixed-sn light-blue-skin">
+<!-- <map key="AIzaSyAky5ZG7VrHWV52fizmdiKorq2_GaH6tCE"/> -->
+	<!--Main Navigation-->
+	<header>
+		<nav class="navbar fixed-top navbar-expand-lg navbar-dark double-nav fixed-top bg-red scrolling-navbar">
+			<a class="navbar-brand" href="#"><strong>Blood Bank</strong></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			    <span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Request</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">Map</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#">History</a>
+					</li>
+				</ul>
+				<ul class="navbar-nav nav-flex-icons">
+				    <li class="nav-item">
+				    	<a class="nav-link"><i class="fa fa-facebook"></i></a>
+				    </li>
+				    <li class="nav-item">
+				    	<a class="nav-link"><i class="fa fa-twitter"></i></a>
+				    </li>
+				    <li class="nav-item">
+				    	<a class="nav-link"><i class="fa fa-instagram"></i></a>
+				    </li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<!--Main Navigation-->
+	
+	<!--Main layout-->
+	<main>
+		<div class="container-fluid mt-70">
+	   		<!--Section: Features v.1-->
+	   		<section class="section feature-box">
+	   			<!--Section heading-->
+				<h1 class="section-heading pt-4">Why is it so great?</h1>
+				<!--Section description-->
+				<p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+				<div id="locationField">
+			      <input id="autocomplete" placeholder="Enter your address" type="text"></input>
+			    </div>
+			
+			    <table id="address">
+			      <tr>
+			        <td class="label">Street address</td>
+			        <td class="slimField"><input class="field" id="street_number"
+			              disabled="true"></input></td>
+			        <td class="wideField" colspan="2"><input class="field" id="route"
+			              disabled="true"></input></td>
+			      </tr>
+			      <tr>
+			        <td class="label">City</td>
+			        <!-- Note: Selection of address components in this example is typical.
+			             You may need to adjust it for the locations relevant to your app. See
+			             https://developers.google.com/maps/documentation/javascript/examples/places-autocomplete-addressform
+			        -->
+			        <td class="wideField" colspan="3"><input class="field" id="locality"
+			              disabled="true"></input></td>
+			      </tr>
+			      <tr>
+			        <td class="label">State</td>
+			        <td class="slimField"><input class="field"
+			              id="administrative_area_level_1" disabled="true"></input></td>
+			        <td class="label">Zip code</td>
+			        <td class="wideField"><input class="field" id="postal_code"
+			              disabled="true"></input></td>
+			      </tr>
+			      <tr>
+			        <td class="label">Country</td>
+			        <td class="wideField" colspan="3"><input class="field"
+			              id="country" disabled="true"></input></td>
+			      </tr>
+			    </table>
+			    
+				<!--Grid row-->
+				<div class="row features-big">
+					<div id="map" style="height: 100%;width: 100%;position: absolute;overflow: hidden;"></div>
+					<script type="text/javascript" th:src="@{/js/script.js}"></script>
+					<script async defer th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyA9CTKCq3Xc0Jwmm7lLEN7LVF_oczM_rmo&libraries=places&callback=initAutocomplete}"></script>
+				</div>
+				<!--Grid row-->
+			</section>
+			<!--Section: Features v.1-->
+		</div>
+	</main>
+	<!--Main layout-->
+
+	<!--Footer-->
+	<footer class="page-footer center-on-small-only">
+		<!--Copyright-->
+		<div class="footer-copyright">
+			<div class="container-fluid bg-red">
+				© 2018 Copyright: <a href="#"> Blood Bank </a>
+			</div>
+		</div>
+		<!--/.Copyright-->
+	</footer>
+	<!--/.Footer-->
+
+	<!-- SCRIPTS -->
+	<!-- JQuery -->
+	<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+	<!-- Bootstrap core JavaScript -->
+	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+
+   
+</body>
+</html>

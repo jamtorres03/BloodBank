@@ -1,1 +1,21 @@
-/* Your custom styles */
+.mb-15 {
+	margin-bottom: 15px;.
+}
+
+.mt-70 {
+	margin-top: 70px;.
+}
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+	line-height: 1.5;
+}
+#map {
+	height: 100%;
+}
+
+a {
+	text-decoration: none;
+}

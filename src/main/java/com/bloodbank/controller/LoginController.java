@@ -3,8 +3,6 @@ package com.bloodbank.controller;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -56,18 +54,36 @@ public class LoginController {
 				}
 			}
 		}
-		
 		return modelAndView;
 	}
 	
-	@RequestMapping(value="/admin/home", method = RequestMethod.GET)
-	public ModelAndView home(){
+	@RequestMapping(value="/forgot", method = RequestMethod.GET)
+	public ModelAndView forgotPassword(){
 		ModelAndView modelAndView = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("userName", "Welcome " + user.getName() + " (" + user.getEmail() + ")");
-		modelAndView.addObject("adminMessage","Content Available Only for Users with Admin Role");
-		modelAndView.setViewName("admin/home");
+		modelAndView.setViewName("forgot");
 		return modelAndView;
 	}
+	
+	@RequestMapping(value = "/forgot", method = RequestMethod.POST)
+	public ModelAndView sendResetEmail(@Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.addObject("successMessage", "Reset password link has been sent to your email.");
+		modelAndView.setViewName("forgot");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value="/enter-code", method = RequestMethod.GET)
+	public ModelAndView enterCode(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("enter-code");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/enter-code", method = RequestMethod.POST)
+	public ModelAndView verifyCode(@Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("login");
+		return modelAndView;
+	}
+	
 }

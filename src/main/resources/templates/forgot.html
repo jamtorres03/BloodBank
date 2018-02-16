@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Login</title>
+	<title>Forgot Password</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -23,41 +23,31 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
-				<form th:action="@{/login}" method="POST" class="login100-form validate-form">
+				<form autocomplete="off" action="#" th:action="@{/forgot}" th:object="${user}" method="post" class="login100-form validate-form" role="form">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Log in
+						Forgot Password
 					</span>
-
-					<label th:if="${param.error}" class="validation-message text-center mb-15">Email or Password is invalid.</label>
+					
+					<label class="validation-message text-center mb-15" th:utext="${successMessage}"></label>
+					
 					<div class="wrap-input100 validate-input" data-validate = "Enter a valid email">
-						<input type="text" id="email" name="email"  th:placeholder="Email" class="input100" />
+						<input type="email" id="email" name="email" th:placeholder="Email" class="input100" />
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
-
-					<div class="wrap-input100 validate-input" data-validate="Enter password">
-						<input type="password"  th:placeholder="Password" id="password" name="password" class="input100" />
-						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
-
+					
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="Submit">
-							Login
+							Reset Password
 						</button>
 					</div>
 
 					<div class="text-right p-t-90">
-						<a class="txt1" th:href="@{/registration}">
-							Sign Up
-						</a>
-					</div>
-					
-					<div class="text-right">
-						<a class="txt1" th:href="@{/forgot}">
-							Forgot Password
+						<a class="txt1" th:href="@{/login}">
+							Login
 						</a>
 					</div>
 				</form>
