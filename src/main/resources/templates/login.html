@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:th="http://www.thymeleaf.org">
 <head>
-	<title>Sign Up</title>
+	<title>Login</title>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	
@@ -23,54 +23,41 @@
 	<div class="limiter">
 		<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
 			<div class="wrap-login100">
-				<form autocomplete="off" action="#" th:action="@{/registration}" th:object="${user}" method="post" class="login100-form validate-form" role="form">
+				<form th:action="@{/login}" method="POST" class="login100-form validate-form">
 					<span class="login100-form-logo">
 						<i class="zmdi zmdi-landscape"></i>
 					</span>
 
 					<span class="login100-form-title p-b-34 p-t-27">
-						Sign Up
+						Log in
 					</span>
-					
-					<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message mb-15"></label>
+
+					<label th:if="${param.error}" class="validation-message text-center mb-15">Email or Password is invalid.</label>
 					<div class="wrap-input100 validate-input" data-validate = "Enter a valid email">
-						<input type="email" id="email" name="email" th:field="*{email}" th:placeholder="Email" class="input100" />
+						<input type="text" id="email" name="email"  th:placeholder="Email" class="input100" />
 						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
-					
-					<label th:if="${#fields.hasErrors('contactNo')}" th:errors="*{contactNo}" class="validation-message mb-15"></label>
-					<div class="wrap-input100 validate-input" data-validate="Enter a valid contact number">
-						<input type="text" placeholder="Contact Number" th:field="*{contactNo}" id="contactNo" name="contactNo" class="input100" />
+
+					<div class="wrap-input100 validate-input" data-validate="Enter password">
+						<input type="password"  th:placeholder="Password" id="password" name="password" class="input100" />
 						<span class="focus-input100" data-placeholder="&#xf191;"></span>
-					</div>
-					
-					<label th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="validation-message mb-15"></label>
-					<div class="wrap-input100 validate-input" data-validate = "Enter a valid fullname">
-						<input type="text" id="name" name="name" th:field="*{name}" placeholder="Fullname" class="input100" />
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-					</div>
-					
-					<label th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="validation-message mb-15"></label>
-					<div class="wrap-input100 validate-input" data-validate = "Enter a valid password">
-						<input type="password" id="password" name="password" th:field="*{password}" placeholder="Password" class="input100" />
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
-					</div>
-					
-					<label th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="validation-message mb-15"></label>
-					<div class="wrap-input100 validate-input" data-validate = "Passwords do not match!">
-						<input type="password" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" placeholder="Confirm Password" class="input100" />
-						<span class="focus-input100" data-placeholder="&#xf207;"></span>
 					</div>
 
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn" type="Submit">
-							Sign Up
+							Login
 						</button>
 					</div>
 
 					<div class="text-right p-t-90">
-						<a class="txt1" th:href="@{/login}">
-							Login
+						<a class="txt1" th:href="@{/registration}">
+							Sign Up
+						</a>
+					</div>
+					
+					<div class="text-right">
+						<a class="txt1" href="#">
+							Forgot Password
 						</a>
 					</div>
 				</form>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title>Test</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet">
+    <!-- Material Design Bootstrap -->
+    <link th:href="@{/css/mdb.css}" rel="stylesheet">
+    <!-- Your custom styles (optional) -->
+    <link th:href="@{/css/style.css}" rel="stylesheet">
+</head>
+
+<body class="fixed-sn light-blue-skin">
+	<!--Main Navigation-->
+	<header>
+	  <nav class="navbar fixed-top navbar-expand-lg navbar-dark double-nav fixed-top bg-red scrolling-navbar">
+	    <a class="navbar-brand" href="#"><strong>Blood Bank</strong></a>
+	    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+	        <span class="navbar-toggler-icon"></span>
+	    </button>
+	    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+	      <ul class="navbar-nav mr-auto">
+	        <li class="nav-item active">
+	          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">Features</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">Pricing</a>
+	        </li>
+	        <li class="nav-item">
+	          <a class="nav-link" href="#">Opinions</a>
+	        </li>
+	      </ul>
+	      <ul class="navbar-nav nav-flex-icons">
+	          <li class="nav-item">
+	            <a class="nav-link"><i class="fa fa-facebook"></i></a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link"><i class="fa fa-twitter"></i></a>
+	          </li>
+	          <li class="nav-item">
+	            <a class="nav-link"><i class="fa fa-instagram"></i></a>
+	          </li>
+	      </ul>
+	    </div>
+	  </nav>
+	</header>
+	<!--Main Navigation-->
+    
+    <!--Main layout-->
+    <main>
+       <div class="container-fluid">
+       	<!--Section: Features v.1-->
+		<section class="section feature-box">
+		
+		  <!--Section heading-->
+		  <h1 class="section-heading pt-4">Why is it so great?</h1>
+		  <!--Section description-->
+		  <p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
+		
+		  <!--Grid row-->
+		  <div class="row features-big">
+		
+		    <!--Grid column-->
+		    <div class="col-md-4 mb-r">
+		      <i class="fa fa-area-chart red-text"></i>
+		      <h5 class="feature-title">Analytics</h5>
+		      <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+		    </div>
+		    <!--Grid column-->
+		
+		    <!--Grid column-->
+		    <div class="col-md-4 mb-r">
+		      <i class="fa fa-book cyan-text"></i>
+		      <h5 class="feature-title">Tutorials</h5>
+		      <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+		    </div>
+		    <!--Grid column-->
+		
+		    <!--Grid column-->
+		    <div class="col-md-4 mb-r">
+		      <i class="fa fa-coffee orange-text"></i>
+		      <h5 class="feature-title">Relax</h5>
+		      <p class="grey-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Reprehenderit maiores nam, aperiam minima assumenda deleniti hic.</p>
+		    </div>
+		    <!--Grid column-->
+		
+		  </div>
+		  <!--Grid row-->
+		
+		</section>
+		<!--Section: Features v.1-->
+       </div>
+    </main>
+    <!--Main layout-->
+
+    <!--Footer-->
+    <footer class="page-footer center-on-small-only">
+        <!--Copyright-->
+        <div class="footer-copyright">
+            <div class="container-fluid">
+                © 2015 Copyright:
+                <a href="https://www.MDBootstrap.com"> MDBootstrap.com </a>
+            </div>
+        </div>
+        <!--/.Copyright-->
+    </footer>
+    <!--/.Footer-->
+
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+    <!-- Bootstrap tooltips -->
+    <script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" th:src="@{/js/mdb.min.js}"></script>
+
+    <!-- Initializations -->
+    <script>
+        // SideNav Initialization
+        $(".button-collapse").sideNav();
+
+        // Material Select Initialization
+        $(document).ready(function () {
+            $('.mdb-select').material_select();
+        });
+
+        // Data Picker Initialization
+        $('.datepicker').pickadate();
+
+        // Tooltip Initialization
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+</body>
+</html>
