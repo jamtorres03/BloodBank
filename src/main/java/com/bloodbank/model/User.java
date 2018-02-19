@@ -63,6 +63,12 @@ public class User {
 	@Column(name = "location")
 	private String location;
 	
+	@Column(name = "longitude")
+	private String longitude;
+	
+	@Column(name = "latitude")
+	private String latitude;
+	
 	@Column(name = "active")
 	private int active;
 	
@@ -148,6 +154,22 @@ public class User {
 
 	public void setLocation(String location) {
 		this.location = location;
+	}
+
+	public String getLongitude() {
+		return longitude;
+	}
+
+	public void setLongitude(String longitude) {
+		this.longitude = longitude;
+	}
+
+	public String getLatitude() {
+		return latitude;
+	}
+
+	public void setLatitude(String latitude) {
+		this.latitude = latitude;
 	}
 
 	public int getActive() {
