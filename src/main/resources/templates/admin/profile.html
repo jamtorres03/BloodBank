@@ -32,6 +32,9 @@
 	.profile .input100 {
 		border-bottom: none;
 	}
+	.mt-20 {
+		margin-top: 20px;.
+	}
 	</style>
 </head>
 
@@ -47,10 +50,14 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">
-						<a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
+						<form th:action="@{/admin/profile}">
+							<button class="nav-link" name="registration" type="Submit">Profile <span class="sr-only">(current)</span></button>
+						</form>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Request</a>
+						<form th:action="@{/admin/request}">
+							<button class="nav-link" name="registration" type="Submit">Request</button>
+						</form>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Map</a>
@@ -69,6 +76,12 @@
 				    <li class="nav-item">
 				    	<a class="nav-link"><i class="fa fa-instagram"></i></a>
 				    </li>
+				    <li class="nav-item">
+				    	<form th:action="@{/logout}" method="get">
+							<button class="nav-link" name="registration" type="Submit">Logout</button>
+						</form>
+				    </li>
+				    
 				</ul>
 			</div>
 		</nav>
@@ -82,7 +95,7 @@
 	   		<section class="section feature-box">
 				<!--Section description-->
 				<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
-					<div class="wrap-login100">
+					<div class="wrap-login100 mt-20">
 						<form autocomplete="off" action="#" th:action="@{/admin/profile}" th:object="${user}" method="post" class="login100-form validate-form" role="form">
 							<span class="login100-form-logo">
 								<i class="zmdi zmdi-landscape"></i>
@@ -116,6 +129,12 @@
 								<input type="text" id="autocomplete" name="location" th:field="*{location}" placeholder="Location" class="input100" />
 								<input type="hidden" id="longitude" name="longitude" th:field="*{longitude}" />
 								<input type="hidden" id="latitude" name="latitude" th:field="*{latitude}" />
+								
+								<input type="hidden" id="email" name="email" th:field="*{email}" value="*{email}"/>
+								<input type="hidden" id="password" name="password" th:field="*{password}" value="*{password}"/>
+								<input type="hidden" id="confirmPassword" name="confirmPassword" th:field="*{confirmPassword}" value="12345"/>
+								<input type="hidden" id="name" name="name" th:field="*{name}" value="*{name}"/>
+								<input type="hidden" id="contactNo" name="contactNo" th:field="*{contactNo}" value="*{contactNo}"/>
 								<span class="focus-input100" data-placeholder="&#xf207;"></span>
 							</div>
 							

@@ -32,6 +32,8 @@
 						Sign Up
 					</span>
 					
+					<label class="validation-message text-center mb-15" th:utext="${successMessage}"></label>
+					
 					<label th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="validation-message mb-15"></label>
 					<div class="wrap-input100 validate-input" data-validate = "Enter a valid email">
 						<input type="email" id="email" name="email" th:field="*{email}" th:placeholder="Email" class="input100" />

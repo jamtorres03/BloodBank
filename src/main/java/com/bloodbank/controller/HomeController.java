@@ -54,4 +54,25 @@ public class HomeController {
 		}
 		return modelAndView;
 	}
+	
+	@RequestMapping(value="/admin/request", method = RequestMethod.GET)
+	public ModelAndView request(){
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("admin/request");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/admin/request", method = RequestMethod.POST)
+	public ModelAndView addRequest(@Valid User user, BindingResult bindingResult) {
+		ModelAndView modelAndView = new ModelAndView();
+		
+		if (bindingResult.hasErrors()) {
+			modelAndView.setViewName("admin/profile");
+		} else {
+			modelAndView.addObject("successMessage", "Successfully updated.");
+			modelAndView.addObject("user", new User());
+			modelAndView.setViewName("admin/profile");
+		}
+		return modelAndView;
+	}
 }
