@@ -47,15 +47,15 @@ public class User {
 	@NotEmpty(message = "*Please provide your name")
 	private String name;
 	
-	@Column(name = "last_name")
-	private String lastName;
-	
 	@Column(name = "contact_no")
 	@NotEmpty(message = "*Please provide your contact number")
 	private String contactNo;
 	
 	@Column(name = "age")
 	private String age;
+	
+	@Column(name = "gender")
+	private String gender;
 	
 	@Column(name = "blood_type")
 	private String bloodType;
@@ -64,13 +64,16 @@ public class User {
 	private String location;
 	
 	@Column(name = "longitude")
-	private String longitude;
+	private double longitude;
 	
 	@Column(name = "latitude")
-	private String latitude;
+	private double latitude;
 	
 	@Column(name = "active")
 	private int active;
+	
+	@Column(name = "available")
+	private int available;
 	
 	@ManyToMany(cascade = CascadeType.ALL)
 	@JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
@@ -116,14 +119,6 @@ public class User {
 		this.name = name;
 	}
 
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
 	public String getContactNo() {
 		return contactNo;
 	}
@@ -138,6 +133,14 @@ public class User {
 
 	public void setAge(String age) {
 		this.age = age;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public String getBloodType() {
@@ -156,19 +159,19 @@ public class User {
 		this.location = location;
 	}
 
-	public String getLongitude() {
+	public double getLongitude() {
 		return longitude;
 	}
 
-	public void setLongitude(String longitude) {
+	public void setLongitude(double longitude) {
 		this.longitude = longitude;
 	}
 
-	public String getLatitude() {
+	public double getLatitude() {
 		return latitude;
 	}
 
-	public void setLatitude(String latitude) {
+	public void setLatitude(double latitude) {
 		this.latitude = latitude;
 	}
 
@@ -180,6 +183,14 @@ public class User {
 		this.active = active;
 	}
 
+	public int getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(int available) {
+		this.available = available;
+	}
+
 	public Set<Role> getRoles() {
 		return roles;
 	}
@@ -187,5 +198,4 @@ public class User {
 	public void setRoles(Set<Role> roles) {
 		this.roles = roles;
 	}
-
 }

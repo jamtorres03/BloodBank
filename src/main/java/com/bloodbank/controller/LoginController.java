@@ -46,7 +46,6 @@ public class LoginController {
 				if (userExists != null) {
 					bindingResult.rejectValue("email", "error.user", "There is already a user registered with the email provided.");
 				} else {
-					user.setLastName(user.getName());
 					userService.saveUser(user);
 					modelAndView.addObject("successMessage", "User has been registered successfully.");
 					modelAndView.addObject("user", new User());

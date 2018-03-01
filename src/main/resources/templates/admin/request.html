@@ -14,6 +14,28 @@
 	<link th:href="@{/css/mdb.css}" rel="stylesheet">
 	<!-- Your custom styles (optional) -->
 	<link th:href="@{/css/style.css}" rel="stylesheet">
+	<link rel="icon" type="image/png" th:href="@{/images/icons/favicon.ico}"/>
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/bootstrap/css/bootstrap.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/font-awesome-4.7.0/css/font-awesome.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/fonts/iconic/css/material-design-iconic-font.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/animate/animate.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/css-hamburgers/hamburgers.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/animsition/css/animsition.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/select2/select2.min.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/vendor/daterangepicker/daterangepicker.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
+	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+	<style>
+	.profile .container-login100 {
+		padding: 0px;
+	}
+	.profile .input100 {
+		border-bottom: none;
+	}
+	.mt-20 {
+		margin-top: 20px;.
+	}
+	</style>
 </head>
 
 <body class="fixed-sn light-blue-skin">
@@ -27,11 +49,15 @@
 			</button>
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
-					<li class="nav-item active">
-						<a class="nav-link" href="#">Profile <span class="sr-only">(current)</span></a>
-					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Request</a>
+						<form th:action="@{/admin/profile}">
+							<button class="nav-link" name="registration" type="Submit">Profile</button>
+						</form>
+					</li>
+					<li class="nav-item active">
+						<form th:action="@{/admin/request}">
+							<button class="nav-link" name="registration" type="Submit">Request <span class="sr-only">(current)</span></button>
+						</form>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">Map</a>
@@ -50,6 +76,12 @@
 				    <li class="nav-item">
 				    	<a class="nav-link"><i class="fa fa-instagram"></i></a>
 				    </li>
+				    <li class="nav-item">
+				    	<form th:action="@{/logout}" method="get">
+							<button class="nav-link" name="registration" type="Submit">Logout</button>
+						</form>
+				    </li>
+				    
 				</ul>
 			</div>
 		</nav>
