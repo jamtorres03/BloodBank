@@ -1,7 +1,11 @@
 package com.bloodbank.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.validation.Valid;
 
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -9,9 +13,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.bloodbank.model.User;
+import com.bloodbank.model.UserModel;
 import com.bloodbank.service.UserService;
 
 @Controller
@@ -77,4 +83,15 @@ public class HomeController {
 		}
 		return modelAndView;
 	}
+	
+	@ResponseBody
+	 public List<UserModel> generateJSONPosts() {
+		List<UserModel> list = new ArrayList<UserModel>();
+		for (User user: userService.findByAvailable()) {
+			UserModel model = new UserModel();
+			BeanUtils.copyProperties(user, model);
+			list.add(model);
+		}
+		return list;
+	 }
 }
