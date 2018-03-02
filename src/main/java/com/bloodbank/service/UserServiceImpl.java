@@ -2,6 +2,7 @@ package com.bloodbank.service;
 
 import java.util.Arrays;
 import java.util.HashSet;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -44,5 +45,11 @@ public class UserServiceImpl implements UserService {
 		user.setRoles(new HashSet<Role>(Arrays.asList(userRole)));
 		userRepository.save(user);
 	}
+	
+	@Override
+	public List<User> findByAvailable() {
+		return userRepository.findByAvailable(0);
+	}
+
 
 }

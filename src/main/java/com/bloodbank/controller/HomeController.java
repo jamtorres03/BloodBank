@@ -60,6 +60,7 @@ public class HomeController {
 	public ModelAndView request() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/request");
+		modelAndView.addObject("userList", userService.findByAvailable());
 		return modelAndView;
 	}
 
