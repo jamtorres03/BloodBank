@@ -118,7 +118,9 @@
 						</form>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">Map</a>
+						<form th:action="@{/admin/map}">
+							<button class="nav-link" name="registration" type="Submit">Map </button>
+						</form>
 					</li>
 					<li class="nav-item">
 						<a class="nav-link" href="#">History</a>
@@ -258,7 +260,24 @@
 	<script th:src="@{/vendor/daterangepicker/daterangepicker.js}"></script>
 	<script th:src="@{/vendor/countdowntime/countdowntime.js}"></script>
 	<script th:src="@{/js/main.js}"></script>
-	
+	<script type="text/javascript">
+	$(document).ready(function () {
+	    $.ajax({
+	        type : 'POST',
+	        url : '/admin/users',
+	        dataType : 'json',
+	        contentType : 'application/json',
+	        success : function(data) {
+	        	localStorage.setItem("users", JSON.stringify(data));
+	        	currentUsers = data;
+	        	console.log(data);
+	        },
+	        error : function() {
+	            alert('error');
+	        }
+	    });
+	});
+	</script>
    
 </body>
 </html>

@@ -99,52 +99,17 @@
 				<h1 class="section-heading pt-4">Why is it so great?</h1>
 				<!--Section description-->
 				<p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-				<div class="container-login100" style="background-image: url('images/bg-01.jpg');">
-					<div class="wrap-login100 mt-20">
-						<form autocomplete="off" action="#" th:action="@{/admin/request}" th:object="${request}" method="post" class="login100-form validate-form" role="form">
-							<span class="login100-form-logo">
-								<i class="zmdi zmdi-landscape"></i>
-							</span>
-							
-							<label class="validation-message text-center mb-15" th:utext="${successMessage}"></label>
-		
-							<label th:if="${#fields.hasErrors('bloodType')}" th:errors="*{bloodType}" class="validation-message mb-15"></label>
-							<div class="wrap-input100 validate-input" data-validate = "Select a valid blood type">
-						        <select class="input100" th:field="*{bloodType}" style="width:100%;">
-								    <option class="dropdown-item" value="O+">O+</option>
-					                <option class="dropdown-item" value="A+">A+</option>
-					                <option class="dropdown-item" value="B+">B+</option>
-					                <option class="dropdown-item" value="AB+">AB+</option>
-					                <option class="dropdown-item" value="O-">O-</option>
-					                <option class="dropdown-item" value="A-">A-</option>
-					                <option class="dropdown-item" value="B-">B-</option>
-					                <option class="dropdown-item" value="AB-">AB-</option>
-								</select>
-						        <span class="focus-input100" data-placeholder="&#xf207;"></span>
-							</div>
-							
-							<label th:if="${#fields.hasErrors('location')}" th:errors="*{location}" class="validation-message mb-15"></label>
-							<div id="locationField" class="wrap-input100 validate-input" data-validate = "Enter a valid location">
-								<input type="text" id="autocomplete" name="location" th:field="*{location}" placeholder="Location" class="input100" />
-								<input type="hidden" id="longitude" name="longitude" th:field="*{longitude}" />
-								<input type="hidden" id="latitude" name="latitude" th:field="*{latitude}" />
-							</div>
-							
-							<div class="container-login100-form-btn">
-								<button class="login100-form-btn" type="Submit">
-									Save
-								</button>
-							</div>
-							<!--Grid row-->
-							<div class="row features-big">
-								<div id="map"></div>
-								<script type="text/javascript" th:src="@{/js/script.js}"></script>
-								<script async defer th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyA9CTKCq3Xc0Jwmm7lLEN7LVF_oczM_rmo&libraries=places&callback=initAutocomplete}"></script>
-							</div>
-							<!--Grid row-->
-						</form>
-					</div>
+				<div id="locationField">
+			      <input id="autocomplete" placeholder="Enter your address" type="text"></input>
+			    </div>
+			
+				<!--Grid row-->
+				<div class="row features-big mt-20">
+					<div id="map" style="height: 100%;width: 100%;position: absolute;overflow: hidden;"></div>
+					<script type="text/javascript" th:src="@{/js/script.js}"></script>
+					<script async defer th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyA9CTKCq3Xc0Jwmm7lLEN7LVF_oczM_rmo&libraries=places&callback=initAutocomplete}"></script>
 				</div>
+				<!--Grid row-->
 			</section>
 			<!--Section: Features v.1-->
 		</div>

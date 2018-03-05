@@ -1,5 +1,4 @@
 function initMap() {
-
 	var broadway = {
 		info: '<strong>Chipotle on Broadway</strong><br>\
 					5224 N Broadway St<br> Chicago, IL 60640<br>\
@@ -59,18 +58,18 @@ function initMap() {
 	}
 	
 	var marker, i;
-
-	for (i = 0; i < locations.length; i++) {
+	var currentUsers = JSON.parse(localStorage.getItem("users"));
+	for (i = 0; i < currentUsers.length; i++) {
 		marker = new google.maps.Marker({
-			position: new google.maps.LatLng(locations[i][1], locations[i][2]),
+			position: new google.maps.LatLng(currentUsers[i].latitude, currentUsers[i].longitude),
 			map: map
 		});
 
 		google.maps.event.addListener(marker, 'click', (function (marker, i) {
 			return function () {
-				infowindow.setContent(locations[i][0]);
+				infowindow.setContent("<div>" + currentUsers[i].name + "</div><div>" + currentUsers[i].bloodType + "</div><div>" + currentUsers[i].location + "</div>");
 				infowindow.open(map, marker);
-			}
+			};
 		})(marker, i));
 	}
 }
