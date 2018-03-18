@@ -16,11 +16,15 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.bloodbank.model.Notification;
 import com.bloodbank.model.Request;
+import com.bloodbank.model.RequestModel;
 import com.bloodbank.model.User;
 import com.bloodbank.model.UserModel;
+import com.bloodbank.service.NotificationService;
 import com.bloodbank.service.RequestService;
 import com.bloodbank.service.UserService;
+import com.google.gson.Gson;
 
 @Controller
 public class HomeController {
@@ -30,6 +34,9 @@ public class HomeController {
 
 	@Autowired
 	private RequestService requestService;
+	
+	@Autowired
+	private NotificationService notificationService;
 
 	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
 	public ModelAndView home() {
@@ -100,6 +107,19 @@ public class HomeController {
 			modelAndView.addObject("successMessage", "Request sent!");
 			request.setRequestedBy(auth.getName());
 			requestService.saveRequest(request);
+			
+			List<User> list = userService.findByAvailable();
+			
+			//notify users
+			Gson gson = new Gson();
+			for(User user: list) {
+				RequestModel model = new RequestModel();
+				BeanUtils.copyProperties(request, model);
+				String msg = "ID: " + request.getUuid();
+				msg += "\nBlood Type: " + request.getBloodType();
+				notificationService.notify(new Notification(gson.toJson(model)), user.getEmail());
+			}
+		    
 			modelAndView.setViewName("admin/map");
 		}
 		return modelAndView;

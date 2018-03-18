@@ -56,7 +56,7 @@
 					</li>
 					<li class="nav-item active">
 						<form th:action="@{/admin/request}">
-							<button class="nav-link" name="registration" type="Submit">Request <span class="sr-only">(current)</span></button>
+							<button class="nav-link" name="registration" type="Submit">Request Blood <span class="sr-only">(current)</span></button>
 						</form>
 					</li>
 					<li class="nav-item">
@@ -168,9 +168,52 @@
 	<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
 	<!-- Bootstrap core JavaScript -->
 	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
-	<script>
-		
-	</script>
+	<script th:src="@{/sockjs-0.3.4.min.js}"></script>
+    <script th:src="@{/stomp.min.js}"></script>
+	<!-- Javascript functions -->
+    <script>
+
+      /**
+       * Open the web socket connection and subscribe the "/notify" channel.
+       */
+      function connect() {
+
+        // Create and init the SockJS object
+        var socket = new SockJS('/ws');
+        var stompClient = Stomp.over(socket);
+
+        // Subscribe the '/notify' channell
+        stompClient.connect({}, function(frame) {
+          stompClient.subscribe('/user/queue/notify', function(notification) {
+
+            // Call the notify function when receive a notification
+            notify(JSON.parse(notification.body).content);
+
+          });
+        });
+        
+        return;
+      } // function connect
+      
+      /**
+       * Display the notification message.
+       */
+      function notify(message) {
+        console.log(message);
+        return;
+      }
+      
+      /**
+       * Init operations.
+       */
+      $(document).ready(function() {
+        
+        // Start the web socket connection.
+        connect();
+        
+      });
+
+    </script>
    
 </body>
 </html>

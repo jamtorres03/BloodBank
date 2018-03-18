@@ -20,6 +20,9 @@ public class Request {
 	@Column(name = "request_no")
 	private int requestNo;
 	
+	@Column(name = "uuid")
+	private String uuid;
+	
 	@Column(name = "blood_type")
 	private String bloodType;
 	
@@ -56,7 +59,15 @@ public class Request {
 	public void setRequestNo(int requestNo) {
 		this.requestNo = requestNo;
 	}
+	
+	public String getUuid() {
+		return uuid;
+	}
 
+	public void setUuid(String uuid) {
+		this.uuid = uuid;
+	}
+	
 	public String getBloodType() {
 		return bloodType;
 	}

@@ -25,6 +25,8 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/vendor/daterangepicker/daterangepicker.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
+	<script th:src="@{/sockjs-0.3.4.min.js}"></script>
+    <script th:src="@{/stomp.min.js}"></script>
 	<style>
 	.profile .container-login100 {
 		padding: 0px;
@@ -56,7 +58,7 @@
 					</li>
 					<li class="nav-item active">
 						<form th:action="@{/admin/request}">
-							<button class="nav-link" name="registration" type="Submit">Request <span class="sr-only">(current)</span></button>
+							<button class="nav-link" name="registration" type="Submit">Request Blood <span class="sr-only">(current)</span></button>
 						</form>
 					</li>
 					<li class="nav-item">
