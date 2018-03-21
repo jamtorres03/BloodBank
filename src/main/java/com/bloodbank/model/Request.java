@@ -2,11 +2,15 @@ package com.bloodbank.model;
 
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,36 +23,38 @@ public class Request {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "request_no")
 	private int requestNo;
-	
+
 	@Column(name = "uuid")
 	private String uuid;
-	
+
 	@Column(name = "blood_type")
 	private String bloodType;
-	
+
 	@Column(name = "location")
 	private String location;
-	
+
 	@Column(name = "longitude")
 	private double longitude;
-	
+
 	@Column(name = "latitude")
 	private double latitude;
-	
+
 	@Column(name = "status")
 	private int status;
-	
-	@Column(name = "requested_by")
-	private String requestedBy;
-	
-	@Column(name = "accepted_by")
-	private String acceptedBy;
-	
-	@Column(name = "request_date", columnDefinition="DATETIME")
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "requested_by", referencedColumnName = "user_id", nullable = false, insertable = true, updatable = false)
+	private User requestedBy;
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@JoinColumn(name = "accepted_by", referencedColumnName = "user_id", nullable = true, insertable = true, updatable = false)
+	private User acceptedBy;
+
+	@Column(name = "request_date", columnDefinition = "DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date requestDate;
-	
-	@Column(name = "accept_date", columnDefinition="DATETIME")
+
+	@Column(name = "accept_date", columnDefinition = "DATETIME")
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date acceptDate;
 
@@ -59,7 +65,7 @@ public class Request {
 	public void setRequestNo(int requestNo) {
 		this.requestNo = requestNo;
 	}
-	
+
 	public String getUuid() {
 		return uuid;
 	}
@@ -67,7 +73,7 @@ public class Request {
 	public void setUuid(String uuid) {
 		this.uuid = uuid;
 	}
-	
+
 	public String getBloodType() {
 		return bloodType;
 	}
@@ -108,19 +114,19 @@ public class Request {
 		this.status = status;
 	}
 
-	public String getRequestedBy() {
+	public User getRequestedBy() {
 		return requestedBy;
 	}
 
-	public void setRequestedBy(String requestedBy) {
+	public void setRequestedBy(User requestedBy) {
 		this.requestedBy = requestedBy;
 	}
 
-	public String getAcceptedBy() {
+	public User getAcceptedBy() {
 		return acceptedBy;
 	}
 
-	public void setAcceptedBy(String acceptedBy) {
+	public void setAcceptedBy(User acceptedBy) {
 		this.acceptedBy = acceptedBy;
 	}
 
@@ -139,5 +145,4 @@ public class Request {
 	public void setAcceptDate(Date acceptDate) {
 		this.acceptDate = acceptDate;
 	}
-
 }

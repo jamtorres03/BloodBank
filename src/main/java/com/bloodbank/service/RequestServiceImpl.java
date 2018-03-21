@@ -1,7 +1,6 @@
 package com.bloodbank.service;
 
-import java.util.Date;
-import java.util.UUID;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -21,10 +20,11 @@ public class RequestServiceImpl implements RequestService {
 	
 	@Override
 	public void saveRequest(Request request) {
-		request.setStatus(1);
-		request.setRequestDate(new Date());
-		request.setUuid(UUID.randomUUID().toString());
 		requestRepository.save(request);
 	}
 
+	@Override
+	public List<Request> findByStatus(int status) {
+		return requestRepository.findByStatus(status);
+	}
 }

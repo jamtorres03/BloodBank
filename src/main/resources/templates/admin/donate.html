@@ -58,7 +58,7 @@
 					</li>
 					<li class="nav-item active">
 						<form th:action="@{/admin/request}">
-							<button class="nav-link" name="registration" type="Submit">Request Blood <span class="sr-only">(current)</span></button>
+							<button class="nav-link" name="registration" type="Submit">Request Blood </button>
 						</form>
 					</li>
 					<li class="nav-item">
@@ -68,7 +68,7 @@
 					</li>
 					<li class="nav-item">
 						<form th:action="@{/admin/donate}">
-							<button class="nav-link" name="registration" type="Submit">Donate </button>
+							<button class="nav-link" name="registration" type="Submit">Donate <span class="sr-only">(current)</span></button>
 						</form>
 					</li>
 					<li class="nav-item">
@@ -103,7 +103,7 @@
 	   		<!--Section: Features v.1-->
 	   		<section class="section feature-box">
 	   			<!--Section heading-->
-				<h1 class="section-heading pt-4">Why is it so great?</h1>
+				<h1 class="section-heading pt-4">Donate</h1>
 				<!--Section description-->
 				<p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
 				<div id="locationField">
@@ -113,7 +113,7 @@
 				<!--Grid row-->
 				<div class="row features-big mt-20">
 					<div id="map" style="height: 100%;width: 100%;position: absolute;overflow: hidden;"></div>
-					<script type="text/javascript" th:src="@{/js/script.js}"></script>
+					<script type="text/javascript" th:src="@{/js/donate.js}"></script>
 					<script async defer th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyA9CTKCq3Xc0Jwmm7lLEN7LVF_oczM_rmo&libraries=places&callback=initAutocomplete}"></script>
 				</div>
 				<!--Grid row-->

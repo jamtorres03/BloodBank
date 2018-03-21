@@ -1,7 +1,9 @@
 package com.bloodbank.controller;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.validation.Valid;
 
@@ -105,21 +107,25 @@ public class HomeController {
 			modelAndView.setViewName("admin/request");
 		} else {
 			modelAndView.addObject("successMessage", "Request sent!");
-			request.setRequestedBy(auth.getName());
+			User u = userService.findUserByEmail(auth.getName());
+			request.setRequestedBy(u);
+			
+			// set to 1 = NEW, and save to DB
+			request.setStatus(1);
+			request.setRequestDate(new Date());
+			request.setUuid(UUID.randomUUID().toString());
 			requestService.saveRequest(request);
 			
-			List<User> list = userService.findByAvailable();
 			
 			//notify users
+			List<User> list = userService.findByAvailable();
 			Gson gson = new Gson();
 			for(User user: list) {
 				RequestModel model = new RequestModel();
 				BeanUtils.copyProperties(request, model);
-				String msg = "ID: " + request.getUuid();
-				msg += "\nBlood Type: " + request.getBloodType();
 				notificationService.notify(new Notification(gson.toJson(model)), user.getEmail());
 			}
-		    
+			modelAndView.addObject("requests", requestService.findByStatus(1));
 			modelAndView.setViewName("admin/map");
 		}
 		return modelAndView;
@@ -136,4 +142,24 @@ public class HomeController {
 		}
 		return list;
 	}
+	
+	@RequestMapping(value = "/admin/donate", method = RequestMethod.GET)
+	public ModelAndView donate() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("admin/donate");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/admin/requests", method = RequestMethod.POST)
+	@ResponseBody
+	public List<RequestModel> generateJSONPostsRequest() {
+		List<RequestModel> list = new ArrayList<RequestModel>();
+		for (Request request : requestService.findByStatus(1)) {
+			RequestModel model = new RequestModel();
+			BeanUtils.copyProperties(request, model);
+			list.add(model);
+		}
+		return list;
+	}
+
 }
