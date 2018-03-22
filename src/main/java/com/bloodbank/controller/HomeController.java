@@ -36,20 +36,17 @@ public class HomeController {
 
 	@Autowired
 	private RequestService requestService;
-	
+
 	@Autowired
 	private NotificationService notificationService;
 
 	@RequestMapping(value = "/admin/home", method = RequestMethod.GET)
 	public ModelAndView home() {
 		ModelAndView modelAndView = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
-		modelAndView.addObject("userName", "Welcome " + user.getName() + " ("
-				+ user.getEmail() + ")");
-		modelAndView.addObject("adminMessage",
-				"Content Available Only for Users with Admin Role");
+		modelAndView.addObject("userName", "Welcome " + user.getName() + " (" + user.getEmail() + ")");
+		modelAndView.addObject("adminMessage", "Content Available Only for Users with Admin Role");
 		modelAndView.setViewName("admin/home");
 		return modelAndView;
 	}
@@ -57,8 +54,7 @@ public class HomeController {
 	@RequestMapping(value = "/admin/profile", method = RequestMethod.GET)
 	public ModelAndView profile() {
 		ModelAndView modelAndView = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		User user = userService.findUserByEmail(auth.getName());
 		modelAndView.addObject("user", user);
 		modelAndView.setViewName("admin/profile");
@@ -66,8 +62,7 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/admin/profile", method = RequestMethod.POST)
-	public ModelAndView updateUserDetails(@Valid User user,
-			BindingResult bindingResult) {
+	public ModelAndView updateUserDetails(@Valid User user, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
 
 		if (bindingResult.hasErrors()) {
@@ -97,11 +92,9 @@ public class HomeController {
 	}
 
 	@RequestMapping(value = "/admin/request", method = RequestMethod.POST)
-	public ModelAndView addRequest(@Valid Request request,
-			BindingResult bindingResult) {
+	public ModelAndView addRequest(@Valid Request request, BindingResult bindingResult) {
 		ModelAndView modelAndView = new ModelAndView();
-		Authentication auth = SecurityContextHolder.getContext()
-				.getAuthentication();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
 		if (bindingResult.hasErrors()) {
 			modelAndView.setViewName("admin/request");
@@ -109,18 +102,17 @@ public class HomeController {
 			modelAndView.addObject("successMessage", "Request sent!");
 			User u = userService.findUserByEmail(auth.getName());
 			request.setRequestedBy(u);
-			
+
 			// set to 1 = NEW, and save to DB
 			request.setStatus(1);
 			request.setRequestDate(new Date());
 			request.setUuid(UUID.randomUUID().toString());
 			requestService.saveRequest(request);
-			
-			
-			//notify users
+
+			// notify users
 			List<User> list = userService.findByAvailable();
 			Gson gson = new Gson();
-			for(User user: list) {
+			for (User user : list) {
 				RequestModel model = new RequestModel();
 				BeanUtils.copyProperties(request, model);
 				notificationService.notify(new Notification(gson.toJson(model)), user.getEmail());
@@ -142,23 +134,35 @@ public class HomeController {
 		}
 		return list;
 	}
-	
+
 	@RequestMapping(value = "/admin/donate", method = RequestMethod.GET)
 	public ModelAndView donate() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("admin/donate");
 		return modelAndView;
 	}
-	
+
 	@RequestMapping(value = "/admin/requests", method = RequestMethod.POST)
 	@ResponseBody
 	public List<RequestModel> generateJSONPostsRequest() {
 		List<RequestModel> list = new ArrayList<RequestModel>();
 		for (Request request : requestService.findByStatus(1)) {
-			RequestModel model = new RequestModel();
-			BeanUtils.copyProperties(request, model);
-			list.add(model);
+			RequestModel requestModel = new RequestModel();
+			BeanUtils.copyProperties(request, requestModel);
+
+			UserModel userR = new UserModel();
+			BeanUtils.copyProperties(request.getRequestedBy(), userR);
+			requestModel.setRequestedBy(userR);
+
+			if (null != request.getAcceptedBy()) {
+				UserModel user = new UserModel();
+				BeanUtils.copyProperties(request.getAcceptedBy(), user);
+				requestModel.setAcceptedBy(user);
+			}
+			
+			list.add(requestModel);
 		}
+
 		return list;
 	}
 

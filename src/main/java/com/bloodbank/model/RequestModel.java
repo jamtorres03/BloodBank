@@ -11,10 +11,11 @@ public class RequestModel {
 	private double longitude;
 	private double latitude;
 	private int status;
-	private User requestedBy;
-	private User acceptedBy;
+	private UserModel requestedBy;
+	private UserModel acceptedBy;
 	private Date requestDate;
 	private Date acceptDate;
+	
 	public int getRequestNo() {
 		return requestNo;
 	}
@@ -57,16 +58,16 @@ public class RequestModel {
 	public void setStatus(int status) {
 		this.status = status;
 	}
-	public User getRequestedBy() {
+	public UserModel getRequestedBy() {
 		return requestedBy;
 	}
-	public void setRequestedBy(User requestedBy) {
+	public void setRequestedBy(UserModel requestedBy) {
 		this.requestedBy = requestedBy;
 	}
-	public User getAcceptedBy() {
+	public UserModel getAcceptedBy() {
 		return acceptedBy;
 	}
-	public void setAcceptedBy(User acceptedBy) {
+	public void setAcceptedBy(UserModel acceptedBy) {
 		this.acceptedBy = acceptedBy;
 	}
 	public Date getRequestDate() {

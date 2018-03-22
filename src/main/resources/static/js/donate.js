@@ -59,21 +59,33 @@ function initMap() {
 	  handleLocationError(false, infowindow, map.getCenter());
 	}
 	
-	var marker, i;
-	var currentUsers = JSON.parse(localStorage.getItem("users"));
-	for (i = 0; i < currentUsers.length; i++) {
-		marker = new google.maps.Marker({
-			position: new google.maps.LatLng(currentUsers[i].latitude, currentUsers[i].longitude),
-			map: map
-		});
+	$.ajax({
+	    type : 'POST',
+	    url : '/admin/requests',
+	    dataType : 'json',
+	    contentType : 'application/json',
+	    success : function(data) {
+	    	requests = data;
+	    	console.log(requests);
+	    	var marker, i;
+	    	for (i = 0; i < requests.length; i++) {
+	    		marker = new google.maps.Marker({
+	    			position: new google.maps.LatLng(requests[i].latitude, requests[i].longitude),
+	    			map: map
+	    		});
 
-		google.maps.event.addListener(marker, 'click', (function (marker, i) {
-			return function () {
-				infowindow.setContent("<div>" + currentUsers[i].name + "</div><div>" + currentUsers[i].bloodType + "</div><div>" + currentUsers[i].location + "</div>");
-				infowindow.open(map, marker);
-			};
-		})(marker, i));
-	}
+	    		google.maps.event.addListener(marker, 'click', (function (marker, i) {
+	    			return function () {
+	    				infowindow.setContent("<div> Requested by: " + requests[i].requestedBy.name + "</div><div>Blood Type: " + requests[i].requestedBy.bloodType + "</div><div>Location: " + requests[i].location + "</div><div><form class='text-right' style='margin-top: 10px;' th:action='@{/admin/profile}'><button class='donate-btn' type='Submit'>Donate</button></form></div>");
+	    				infowindow.open(map, marker);
+	    			};
+	    		})(marker, i));
+	    	}
+	    },
+	    error : function() {
+	        alert('error');
+	    }
+	});
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -94,21 +106,6 @@ var componentForm = {
 };
 
 function initAutocomplete() {
-	$.ajax({
-	    type : 'POST',
-	    url : '/admin/requests',
-	    dataType : 'json',
-	    contentType : 'application/json',
-	    success : function(data) {
-	    	localStorage.setItem("requests", JSON.stringify(data));
-	    	requests = JSON.stringify(data);
-	    	console.log(requests);
-	    },
-	    error : function() {
-	        alert('error');
-	    }
-	});
-	
 	initMap();
 	// Create the autocomplete object, restricting the search to geographical location types.
 	autocomplete = new google.maps.places.Autocomplete(
