@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -118,7 +119,7 @@ public class HomeController {
 				notificationService.notify(new Notification(gson.toJson(model)), user.getEmail());
 			}
 			modelAndView.addObject("requests", requestService.findByStatus(1));
-			modelAndView.setViewName("admin/map");
+			modelAndView.setViewName("admin/donate");
 		}
 		return modelAndView;
 	}
@@ -164,6 +165,68 @@ public class HomeController {
 		}
 
 		return list;
+	}
+	
+	@RequestMapping(value = "/admin/donate-now", method = RequestMethod.GET)
+	@ResponseBody
+	public RequestModel donateTo(@RequestParam String uuid) {
+		Request request = requestService.findByUuid(uuid);
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		if (request.getStatus() == 1) {
+			request.setStatus(2);
+			request.setAcceptedBy(user);
+			request.setAcceptDate(new Date());
+			requestService.saveRequest(request);
+			
+			RequestModel requestModel = new RequestModel();
+			BeanUtils.copyProperties(request, requestModel);
+			
+			UserModel userR = new UserModel();
+			BeanUtils.copyProperties(request.getRequestedBy(), userR);
+			requestModel.setRequestedBy(userR);
+			
+			UserModel userA = new UserModel();
+			BeanUtils.copyProperties(request.getAcceptedBy(), userA);
+			requestModel.setAcceptedBy(userA);
+			
+			Gson gson = new Gson();
+			notificationService.notify(new Notification(gson.toJson(requestModel)), request.getRequestedBy().getEmail());
+			return requestModel;
+		} else {
+			return null;
+		}
+	}
+	
+	@RequestMapping(value = "/admin/mydonations", method = RequestMethod.GET)
+	public ModelAndView mydonations() {
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		List<Request> donations = requestService.findByAcceptedBy(user);
+		modelAndView.addObject("donations", donations);
+		modelAndView.setViewName("admin/mydonations");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/admin/myrequests", method = RequestMethod.GET)
+	public ModelAndView myrequests() {
+		ModelAndView modelAndView = new ModelAndView();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User user = userService.findUserByEmail(auth.getName());
+		List<Request> requests = requestService.findByRequestedBy(user);
+		modelAndView.addObject("requests", requests);
+		modelAndView.setViewName("admin/myrequests");
+		return modelAndView;
+	}
+	
+	@RequestMapping(value = "/admin/request/status", method = RequestMethod.GET)
+	@ResponseBody
+	public String updateStatus(@RequestParam String uuid, @RequestParam String status) {
+		Request request = requestService.findByUuid(uuid);
+		request.setStatus(Integer.parseInt(status));
+		requestService.saveRequest(request);
+		return "success";
 	}
 
 }

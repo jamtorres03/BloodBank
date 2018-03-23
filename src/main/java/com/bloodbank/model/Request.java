@@ -47,7 +47,7 @@ public class Request {
 	private User requestedBy;
 
 	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-	@JoinColumn(name = "accepted_by", referencedColumnName = "user_id", nullable = true, insertable = true, updatable = false)
+	@JoinColumn(name = "accepted_by", referencedColumnName = "user_id", nullable = true, insertable = true, updatable = true)
 	private User acceptedBy;
 
 	@Column(name = "request_date", columnDefinition = "DATETIME")

@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Donate Blood</title>
+	<title>My Donations</title>
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- Bootstrap core CSS -->
@@ -25,8 +25,6 @@
 	<link rel="stylesheet" type="text/css" th:href="@{/vendor/daterangepicker/daterangepicker.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/util.css}">
 	<link rel="stylesheet" type="text/css" th:href="@{/css/main.css}">
-	<script th:src="@{/sockjs-0.3.4.min.js}"></script>
-    <script th:src="@{/stomp.min.js}"></script>
 	<style>
 	.profile .container-login100 {
 		padding: 0px;
@@ -35,10 +33,23 @@
 		border-bottom: none;
 	}
 	.mt-20 {
-		margin-top: 20px;
+		margin-top: 20px;.
 	}
-	.mt10 {
-		margin-top: 10px;
+	.status {
+	   padding: 5px;
+	   font-weight: bold;
+	}
+	.pending {
+		color: #f1f14d;
+	}
+	.inprogress {
+		color: #3399e2;
+	}
+	.completed {
+		color: #54e044;
+	}
+	.cancelled {
+		color: #d32f2f;
 	}
 	</style>
 </head>
@@ -101,20 +112,33 @@
 	   		<!--Section: Features v.1-->
 	   		<section class="section feature-box">
 	   			<!--Section heading-->
-				<h1 class="section-heading pt-4">Donate</h1>
+				<h1 class="section-heading pt-4">My Donations</h1>
 				<!--Section description-->
 				<p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
-				<div id="locationField">
-			      <input id="autocomplete" placeholder="Enter your address" type="text"></input>
-			    </div>
-			
-				<!--Grid row-->
-				<div class="row features-big mt-20">
-					<div id="map" style="height: 100%;width: 100%;position: absolute;overflow: hidden;"></div>
-					<script type="text/javascript" th:src="@{/js/donate.js}"></script>
-					<script async defer th:src="@{https://maps.googleapis.com/maps/api/js?key=AIzaSyA9CTKCq3Xc0Jwmm7lLEN7LVF_oczM_rmo&libraries=places&callback=initAutocomplete}"></script>
+				<div class="mt-20"></div>
+				<div class="">
+					<div class="row justify-content-md-center">
+					  <div class="col-sm-3" th:each="donation : ${donations}">
+					    <div class="card">
+					      <div class="card-header"> Blood Type: <span th:text="${donation.bloodType}"></span> </div>
+						  <div class="card-body">
+						    <h5 class="card-title"> Requested by: <span th:text="${donation.requestedBy.name}"></span> </h5>
+						    <p class="card-text"> Location: <span th:text="${donation.location}"></span> </p>
+						    <p class="card-text">
+						    	<!-- <span th:text="${request.acceptDate}"></span> -->
+						    </p>
+						    <p class="card-text"> Call: <span th:text="${donation.requestedBy.contactNo}"></span> </p>
+						  </div>
+						  <div class="card-footer text-muted text-center">
+						  	<span class="pending status" th:if="${donation.status} == 2">PENDING CONFIRMATION</span>
+					    	<span class="inprogress status" th:if="${donation.status} == 3">IN PROGRESS</span>  
+					    	<span class="completed status" th:if="${donation.status} == 4">COMPLETED</span> 
+					    	<span class="cancelled status" th:if="${donation.status} == 5">CANCELLED</span> 
+						  </div>
+					    </div>
+					  </div>
+					</div>
 				</div>
-				<!--Grid row-->
 			</section>
 			<!--Section: Features v.1-->
 		</div>
@@ -132,45 +156,7 @@
 		<!--/.Copyright-->
 	</footer>
 	<!--/.Footer-->
-	
-	<!-- Modal Delete Topic -->
-	<div class="modal fade" id="deleteTopicModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-	  <div class="modal-dialog modal-dialog-centered" role="document">
-	    <div class="modal-content">
-	      <div class="modal-header">
-	        <h5 class="modal-title" id="exampleModalLongTitle">DONATION STATUS</h5>
-	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-	          <span aria-hidden="true">&times;</span>
-	        </button>
-	      </div>
-	      <div class="modal-body">
-	        Thank your for accepting this request! <span class="donee bold"></span> has been notified.
-	        Please wait for a confirmation from him/her to proceed with the donation.
-	        
-	        <br><br>
-	        Call Donee: <span class="contact"></span>
-	        <br>
-	      </div>
-	      <div class="modal-footer">
-	     	<!-- <div class="form-group">
-	        	<button type="button" class="btn btn-secondary" data-dismiss="modal">CALL</button>
-	        </div> -->
-            <div class="form-group">
-            	<a class="btn btn-primary" th:href="@{/admin/mydonations}">My DONATIONS</a>
-            </div>
-            <div class="form-group">
-            	<button type="submit" class="btn btn-primary" onclick="location.reload();">OK</button>
-            </div>
-	      </div>
-	    </div>
-	  </div>
-	</div>
 
-	<!-- SCRIPTS -->
-	<!-- JQuery -->
-	<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
-	<!-- Bootstrap core JavaScript -->
-	<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
 	<!-- SCRIPTS -->
 	<!-- JQuery -->
 	<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>

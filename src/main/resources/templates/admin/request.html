@@ -5,7 +5,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<meta http-equiv="x-ua-compatible" content="ie=edge">
-	<title>Home</title>
+	<title>Request Blood</title>
 	<!-- Font Awesome -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	<!-- Bootstrap core CSS -->
@@ -50,30 +50,25 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item">
-						<form th:action="@{/admin/profile}">
-							<button class="nav-link" name="registration" type="Submit">Profile</button>
-						</form>
-					</li>
-					<li class="nav-item active">
-						<form th:action="@{/admin/request}">
-							<button class="nav-link" name="registration" type="Submit">Request Blood <span class="sr-only">(current)</span></button>
-						</form>
+						<a th:href="@{/admin/map}" class="nav-link"> Find Donors &nbsp;&nbsp;|</a>
 					</li>
 					<li class="nav-item">
-						<form th:action="@{/admin/map}">
-							<button class="nav-link" name="registration" type="Submit">Map </button>
-						</form>
+						<a th:href="@{/admin/request}" class="nav-link"> Request Blood &nbsp;&nbsp;|</a>
 					</li>
 					<li class="nav-item">
-						<form th:action="@{/admin/donate}">
-							<button class="nav-link" name="registration" type="Submit">Donate </button>
-						</form>
+						<a th:href="@{/admin/myrequests}" class="nav-link"> My Requests &nbsp;&nbsp;|</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">History</a>
+						<a th:href="@{/admin/donate}" class="nav-link"> Donate Blood &nbsp;&nbsp;|</a>
+					</li>
+					<li class="nav-item">
+						<a th:href="@{/admin/mydonations}" class="nav-link"> My Donations &nbsp;&nbsp;|</a>
 					</li>
 				</ul>
 				<ul class="navbar-nav nav-flex-icons">
+					<li class="nav-item">
+				    	<a class="nav-link" th:href="@{/admin/profile}"><i class="fa fa-user"></i></a>
+				    </li>
 				    <li class="nav-item">
 				    	<a class="nav-link"><i class="fa fa-facebook"></i></a>
 				    </li>
@@ -101,7 +96,7 @@
 	   		<!--Section: Features v.1-->
 	   		<section class="section feature-box">
 	   			<!--Section heading-->
-				<h1 class="section-heading pt-4">Why is it so great?</h1>
+				<h1 class="section-heading pt-4">Request Blood</h1>
 				<!--Section description-->
 				<p class="section-description lead grey-text">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.</p>
 				<div class="container-login100" style="background-image: url('images/bg-01.jpg');">

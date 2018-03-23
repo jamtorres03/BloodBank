@@ -76,7 +76,10 @@ function initMap() {
 
 	    		google.maps.event.addListener(marker, 'click', (function (marker, i) {
 	    			return function () {
-	    				infowindow.setContent("<div> Requested by: " + requests[i].requestedBy.name + "</div><div>Blood Type: " + requests[i].requestedBy.bloodType + "</div><div>Location: " + requests[i].location + "</div><div><form class='text-right' style='margin-top: 10px;' th:action='@{/admin/profile}'><button class='donate-btn' type='Submit'>Donate</button></form></div>");
+	    				infowindow.setContent("<div> Requested by: " + requests[i].requestedBy.name + "</div>" + 
+	    						"<div>Blood Type: " + requests[i].requestedBy.bloodType + "</div>" +
+	    						"<div>Location: " + requests[i].location + "</div>" +
+	    						"<div class='text-right mt10'><button class='donate-btn' onclick=donate('" + requests[i].uuid + "') type='Submit'>Donate</button></div>");
 	    				infowindow.open(map, marker);
 	    			};
 	    		})(marker, i));
@@ -123,5 +126,23 @@ function fillInAddress() {
     console.log(place.name);
     $("#latitude").val(place.geometry.location.lat());
     $("#longitude").val(place.geometry.location.lng());
+}
+
+function donate (uuid) {
+	console.log("test" + uuid);
+	$.ajax({
+	    type : 'GET',
+	    url : '/admin/donate-now',
+	    data: ({uuid : uuid}),
+	    success : function(data) {
+	    	console.log(data);
+	    	$(".donee").text(data.requestedBy.name);
+	    	$(".contact").text(data.requestedBy.contactNo);
+	    	$('#deleteTopicModal').modal('show');
+	    },
+	    error : function() {
+	        alert('error');
+	    }
+	});
 }
 
